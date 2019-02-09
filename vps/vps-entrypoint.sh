@@ -60,19 +60,16 @@ log "Update root password"
 echo "root:$ROOT_PASSWORD" | chpasswd
 
 # Create new group
-log "Create group: $USER_GROUP"
-addgroup $USER_GROUP
+log "Create group: $USER_NAME"
+addgroup $USER_NAME
 
 # Create new user
 log "Create user: $USER_NAME"
-adduser $USER_NAME --gecos "$FULL_NAME,$ROOM_NUMBER,$WORK_PHONE,$HOME_PHONE" --ingroup "$USER_GROUP" --disabled-password
+adduser $USER_NAME --gecos "$FULL_NAME,$ROOM_NUMBER,$WORK_PHONE,$HOME_PHONE" --ingroup "$USER_GROUPS" --disabled-password
 
 # Update new user password
 log "Update $USER_NAME password"
 echo "$USER_NAME:$USER_PASSWORD" | chpasswd
-
-log "Update $HOME/$USER_NAME ownership to: $USER_NAME:$USER_GROUP"
-chown -R $USER_NAME:$USER_GROUP $HOME/$USER_NAME
 
 # ---------------
 # ----- SSH -----
@@ -93,8 +90,8 @@ log "Copy SSH configuration from: /vps/ssh/sshd_config.conf"
 cp /vps/ssh/sshd_config.conf /etc/ssh/sshd_config
 
 # Update repository ownership
-log "Update $HOME/$USER_NAME ownership to: $USER_NAME:$USER_GROUP"
-chown -R $USER_NAME:$USER_GROUP $HOME/$USER_NAME
+log "Update $HOME/$USER_NAME ownership to: $USER_NAME:$USER_NAME"
+chown -R $USER_NAME:$USER_NAME $HOME/$USER_NAME
 
 # -------------------
 # ----- POSTFIX -----

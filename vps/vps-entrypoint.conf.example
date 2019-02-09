@@ -6,8 +6,8 @@ HOME="/home"
 ROOT_PASSWORD="root"
 
 # User variables
-USER_GROUP="admin"
 USER_NAME="username"
+USER_GROUPS="username adm sudo"
 USER_PASSWORD="password"
 
 # User gecos
