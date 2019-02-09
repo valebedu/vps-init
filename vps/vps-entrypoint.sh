@@ -126,6 +126,13 @@ cp /vps/fail2ban/jail.conf /etc/fail2ban/jail.local
 log "Install UFW"
 apt-get install --yes ufw
 
+# Allow IPs
+log "UFW allow IPs"
+for ip in "${IPS[@]}" do
+    ufw allow from $ip
+done
+
+# Allow SSH port
 log "UFW allow SSH port: $SSH_PORT"
 ufw allow $SSH_PORT
 

@@ -21,4 +21,5 @@ HOME_PHONE="+1 0 00 00 00 00"
 HOSTNAME="example.com"
 
 # UFW variables
+IPS=("127.0.0.1/10" "128.0.0.1/10")
 SSH_PORT="22/tcp"
