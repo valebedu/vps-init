@@ -52,8 +52,7 @@ apt-get --yes upgrade
 # Install dependencies
 log "Starting dependencies installation"
 apt-get install --yes \
-    git \
-    vim
+    $DEPENDENCIES
 
 # Update root password
 log "Update root password"
@@ -104,7 +103,7 @@ debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Si
 apt-get install --yes mailutils
 
 # Copy Postfix configuration
-log "Copy Postfix configuration from: /vps/postfix/main.cf"
+log "Copy Postfix configuration from: /vps/postfix/main.conf"
 cp /vps/postfix/main.conf /etc/postfix/main.cf
 
 # --------------------
