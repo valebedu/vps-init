@@ -1,0 +1,26 @@
+{
+    "name": "vps-init",
+    "version": "0.2.0",
+    "description": "vps-init quickly setup a safe and clean environment on a VPS on an ubuntu system (preferred 16.04).",
+    "main": "index.js",
+    "scripts": {
+        "release": "standard-version",
+        "postchangelog": "replace 'https://github.com/myproject/issues/' 'https://github.com/valentinbercot/vps-init/issues' CHANGELOG.md & replace 'https://github.com/myproject/compare/' 'https://github.com/valentinbercot/vps-init/compare/' CHANGELOG.md",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/valentinbercot/vps-init.git"
+    },
+    "author": "Valentin Bercot",
+    "license": "MIT",
+    "dependencies": {
+        "replace": "^1.0.1",
+        "standard-version": "^4.4.0"
+    },
+    "standard-version": {
+        "skip": {
+            "tag": true
+        }
+    }
+}
