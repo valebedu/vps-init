@@ -89,8 +89,8 @@ cat /vps/ssh/id_rsa.pub >> $HOME/$USER_NAME/.ssh/authorized_keys
 chmod 600 $HOME/$USER_NAME/.ssh/authorized_keys
 
 # Copy SSH configuration
-log "Copy SSH configuration from: /vps/ssh/sshd_config"
-cp /vps/ssh/sshd_config /etc/ssh/sshd_config
+log "Copy SSH configuration from: /vps/ssh/sshd_config.conf"
+cp /vps/ssh/sshd_config.conf /etc/ssh/sshd_config
 
 # Update repository ownership
 log "Update $HOME/$USER_NAME ownership to: $USER_NAME:$USER_GROUP"
