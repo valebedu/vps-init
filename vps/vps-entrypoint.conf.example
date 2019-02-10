@@ -1,13 +1,14 @@
 # Global variables
-LOCALE="en_GB.UTF-8"
+LOCALE="en_US.UTF-8"
 HOME="/home"
+DEPENDENCIES="curl git vim wget"
 
 # Root variables
 ROOT_PASSWORD="root"
 
 # User variables
-USER_GROUP="admin"
 USER_NAME="username"
+USER_GROUPS="username adm sudo"
 USER_PASSWORD="password"
 
 # User gecos
@@ -20,4 +21,5 @@ HOME_PHONE="+1 0 00 00 00 00"
 HOSTNAME="example.com"
 
 # UFW variables
+IPS=("127.0.0.1/10" "128.0.0.1/10")
 SSH_PORT="22/tcp"

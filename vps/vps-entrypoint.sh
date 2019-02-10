@@ -52,27 +52,23 @@ apt-get --yes upgrade
 # Install dependencies
 log "Starting dependencies installation"
 apt-get install --yes \
-    git \
-    vim
+    $DEPENDENCIES
 
 # Update root password
 log "Update root password"
 echo "root:$ROOT_PASSWORD" | chpasswd
 
 # Create new group
-log "Create group: $USER_GROUP"
-addgroup $USER_GROUP
+log "Create group: $USER_NAME"
+addgroup $USER_NAME
 
 # Create new user
 log "Create user: $USER_NAME"
-adduser $USER_NAME --gecos "$FULL_NAME,$ROOM_NUMBER,$WORK_PHONE,$HOME_PHONE" --ingroup "$USER_GROUP" --disabled-password
+adduser $USER_NAME --gecos "$FULL_NAME,$ROOM_NUMBER,$WORK_PHONE,$HOME_PHONE" --ingroup "$USER_GROUPS" --disabled-password
 
 # Update new user password
 log "Update $USER_NAME password"
 echo "$USER_NAME:$USER_PASSWORD" | chpasswd
-
-log "Update $HOME/$USER_NAME ownership to: $USER_NAME:$USER_GROUP"
-chown -R $USER_NAME:$USER_GROUP $HOME/$USER_NAME
 
 # ---------------
 # ----- SSH -----
@@ -89,12 +85,12 @@ cat /vps/ssh/id_rsa.pub >> $HOME/$USER_NAME/.ssh/authorized_keys
 chmod 600 $HOME/$USER_NAME/.ssh/authorized_keys
 
 # Copy SSH configuration
-log "Copy SSH configuration from: /vps/ssh/sshd_config"
-cp /vps/ssh/sshd_config /etc/ssh/sshd_config
+log "Copy SSH configuration from: /vps/ssh/sshd_config.conf"
+cp /vps/ssh/sshd_config.conf /etc/ssh/sshd_config
 
 # Update repository ownership
-log "Update $HOME/$USER_NAME ownership to: $USER_NAME:$USER_GROUP"
-chown -R $USER_NAME:$USER_GROUP $HOME/$USER_NAME
+log "Update $HOME/$USER_NAME ownership to: $USER_NAME:$USER_NAME"
+chown -R $USER_NAME:$USER_NAME $HOME/$USER_NAME
 
 # -------------------
 # ----- POSTFIX -----
@@ -107,7 +103,7 @@ debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Si
 apt-get install --yes mailutils
 
 # Copy Postfix configuration
-log "Copy Postfix configuration from: /vps/postfix/main.cf"
+log "Copy Postfix configuration from: /vps/postfix/main.conf"
 cp /vps/postfix/main.conf /etc/postfix/main.cf
 
 # --------------------
@@ -130,6 +126,13 @@ cp /vps/fail2ban/jail.conf /etc/fail2ban/jail.local
 log "Install UFW"
 apt-get install --yes ufw
 
+# Allow IPs
+log "UFW allow IPs"
+for ip in "${IPS[@]}" do
+    ufw allow from $ip
+done
+
+# Allow SSH port
 log "UFW allow SSH port: $SSH_PORT"
 ufw allow $SSH_PORT
 
