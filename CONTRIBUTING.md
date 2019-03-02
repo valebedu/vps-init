@@ -14,30 +14,29 @@ Please note we have a [CODE OF CONDUCT][code-of-conduct] please follow it in all
 * [Versioning][semver]
 * [Git commit message][conventional-commits]
 * [Git flow][git-flow]
+* [standard-version][standard-version]
 
 ## Auto changelog
 
-This project use [standard-version][standard-version] to auto changelog this project. Before continuing you need to install following dependencies.
+### Prerequisites
+
+Before using this project you have to be sure npm and node are installed
 
 ```
-npm install standard-version
-npm install replace
+npm -v
+node -v
 ```
 
-Then, after each new release when everything is merged into `release/X.Y.Z` and before merging into master do:
-
-1. update the version in `package.json` to `X.Y.Z`
-2. run the following command:
+Then go to the repository and install dependencies
 
 ```
-npm run release
+cd /path/to/repository
+npm install
 ```
 
-In case of first release (with [standard-version][standard-version]) please run the following command instead:
+### Make a new version
 
-```
-npm run release -- --first-release
-```
+Then, after each new release or pre-release (must be on a release/`major`.`minor`.`patch`{-`alpha|beta|other`.`iteration`} according to [semver][semver]) you must run the a command to make a new release according to [standard-version][standard-version].
 
 [semver]: http://semver.org
 [conventional-commits]: https://www.conventionalcommits.org
